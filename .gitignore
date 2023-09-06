@@ -1,0 +1,11 @@
+*.exe
+
+*.vscode
+
+*.out
+
+*.svg
+
+*.txt
+
+!*approved.txt
