@@ -9,7 +9,7 @@ import (
 
 func TestRecordingWinsAndRetrievingThemWithInMemory(t *testing.T) {
 	store := NewInMemoryPlayerStore()
-	server := PlayerServer{Store: store}
+	server := PlayerServer{store: store}
 	player := "Pepper"
 
 	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
@@ -27,7 +27,7 @@ func TestRecordingWinsAndRetrievingThemWithSQLite(t *testing.T) {
 	os.Remove(playerDB)
 
 	store, _ := NewSQLitePlayerStore()
-	server := PlayerServer{Store: store}
+	server := PlayerServer{store: store}
 	player := "Pepper"
 
 	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))

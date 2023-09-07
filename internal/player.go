@@ -16,8 +16,14 @@ type PlayerStore interface {
 }
 
 type PlayerServer struct {
-	Store PlayerStore
+	store PlayerStore
 	sync.Mutex
+}
+
+func NewPlayerServer(store PlayerStore) *PlayerServer {
+	return &PlayerServer{
+		store: store,
+	}
 }
 
 func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +38,7 @@ func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
-	score := p.Store.GetPlayerScore(player)
+	score := p.store.GetPlayerScore(player)
 
 	if score == 0 {
 		w.WriteHeader(http.StatusNotFound)
@@ -44,6 +50,6 @@ func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
 func (p *PlayerServer) processWin(w http.ResponseWriter, player string) {
 	p.Lock()
 	defer p.Unlock()
-	p.Store.RecordWin(player)
+	p.store.RecordWin(player)
 	w.WriteHeader(http.StatusAccepted)
 }

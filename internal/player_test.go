@@ -28,7 +28,7 @@ func TestGETPlayers(t *testing.T) {
 			"Floyd":  10,
 		},
 	}
-	server := &PlayerServer{Store: &store}
+	server := &PlayerServer{store: &store}
 
 	t.Run("returns Pepper's score", func(t *testing.T) {
 		request := newGetScoreRequest("Pepper")
@@ -65,7 +65,7 @@ func TestStoreWins(t *testing.T) {
 		scores:   map[string]int{},
 		winCalls: nil,
 	}
-	server := &PlayerServer{Store: &store}
+	server := &PlayerServer{store: &store}
 
 	t.Run("it returns accepted on POST", func(t *testing.T) {
 		player := "Pepper"

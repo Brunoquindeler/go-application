@@ -14,7 +14,7 @@ func main() {
 		panic(err)
 	}
 
-	playerServer := &internal.PlayerServer{Store: store}
+	playerServer := internal.NewPlayerServer(store)
 
 	log.Fatal(http.ListenAndServe(":5000", playerServer))
 }
