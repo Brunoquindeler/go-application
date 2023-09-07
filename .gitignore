@@ -9,3 +9,5 @@
 *.txt
 
 !*approved.txt
+
+*.db

@@ -12,8 +12,8 @@ ___
 ## ⚡️ Criando uma Aplicação ⚡️
 |                 Módulo                 |                                                URL                                       |
 |:---------------------------------------|------------------------------------------------------------------------------------------|
-| **❌ Introdução**                     | [**Link**](https://quii.gitbook.io/learn-go-with-tests/build-an-application/app-intro)    |
-| **❌ Servidor HTTP**                  | [**Link**](https://quii.gitbook.io/learn-go-with-tests/build-an-application/http-server)  |
+| **✅ Introdução**                     | [**Link**](https://quii.gitbook.io/learn-go-with-tests/build-an-application/app-intro)    |
+| **✅ Servidor HTTP**                  | [**Link**](https://quii.gitbook.io/learn-go-with-tests/build-an-application/http-server)  |
 | **❌ JSON, Roteamento e Aninhamento** | [**Link**](https://quii.gitbook.io/learn-go-with-tests/build-an-application/json)         |
 | **❌ IO e Sorting**                   | [**Link**](https://quii.gitbook.io/learn-go-with-tests/build-an-application/io)           |
 | **❌ CLI e Estrutura de Pacotes**     | [**Link**](https://quii.gitbook.io/learn-go-with-tests/build-an-application/command-line) |
