@@ -9,9 +9,16 @@ import (
 
 func main() {
 	// store := internal.NewInMemoryPlayerStore()
-	store, err := internal.NewSQLitePlayerStore()
+
+	sqliteConn, err := internal.GetSQLiteConnection()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
+	}
+	defer sqliteConn.Close()
+
+	store, err := internal.NewSQLitePlayerStore(sqliteConn)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	playerServer := internal.NewPlayerServer(store)
