@@ -12,10 +12,8 @@ const (
 	leagueRoute = "/league/"
 	playerRoute = "/players/"
 )
-
 const jsonContentType = "application/json"
-
-const playerDB = "player.db"
+const PlayerDB = "player.db"
 
 type playerStore interface {
 	GetPlayerScore(name string) int
