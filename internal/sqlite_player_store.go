@@ -37,16 +37,46 @@ func NewSQLitePlayerStore() (*SQLitePlayerStore, error) {
 func (s *SQLitePlayerStore) RecordWin(name string) {
 	var err error
 	if wins := s.GetPlayerScore(name); wins == 0 {
-		_, err = s.db.Exec("INSERT INTO players (id, name, wins) VALUES (NULL,?,?);", name, 1)
+		err = s.insertPlayer(name)
 		if err != nil {
 			log.Println(err.Error())
 		}
 	} else {
-		_, err = s.db.Exec("UPDATE players SET wins = ? WHERE name=?;", wins+1, name)
+		err = s.updatePlayer(wins, name)
 		if err != nil {
 			log.Println(err.Error())
 		}
 	}
+}
+
+func (s *SQLitePlayerStore) insertPlayer(name string) error {
+	stmt, err := s.db.Prepare("INSERT INTO players (id, name, wins) VALUES (NULL,?,?);")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(name, 1)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *SQLitePlayerStore) updatePlayer(wins int, name string) error {
+	stmt, err := s.db.Prepare("UPDATE players SET wins = ? WHERE name=?;")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(wins+1, name)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *SQLitePlayerStore) GetPlayerScore(name string) int {
