@@ -3,6 +3,7 @@ package internal
 import (
 	"database/sql"
 	"log"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -19,12 +20,7 @@ type SQLitePlayerStore struct {
 	db *sql.DB
 }
 
-func NewSQLitePlayerStore() (*SQLitePlayerStore, error) {
-	db, err := sql.Open("sqlite3", playerDB)
-	if err != nil {
-		return nil, err
-	}
-
+func NewSQLitePlayerStore(db *sql.DB) (*SQLitePlayerStore, error) {
 	if _, err := db.Exec(create); err != nil {
 		return nil, err
 	}
@@ -32,6 +28,20 @@ func NewSQLitePlayerStore() (*SQLitePlayerStore, error) {
 	return &SQLitePlayerStore{
 		db: db,
 	}, nil
+}
+
+func GetSQLiteConnection() (*sql.DB, error) {
+	db, err := sql.Open("sqlite3", PlayerDB)
+	if err != nil {
+		return nil, err
+	}
+
+	db.SetMaxOpenConns(1)
+	db.SetMaxIdleConns(1)
+	db.SetConnMaxIdleTime(time.Minute)
+	db.SetConnMaxLifetime(time.Minute)
+
+	return db, nil
 }
 
 func (s *SQLitePlayerStore) RecordWin(name string) {
